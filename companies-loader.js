@@ -6,7 +6,7 @@ var domain = config.workplace.domain;
 var username = config.workplace.username;
 var password = config.workplace.password;
 
-var authService = require('workplace-auth-client')(domain);
+var authService = require('workplace-auth-client').configure(domain);
 var provisioningBuilder = require('workplace-provisioning-client');
 
 var kinesis = new AWS.Kinesis({region : config.kinesis.region});
