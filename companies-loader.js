@@ -1,5 +1,4 @@
 var AWS = require('aws-sdk');
-var async = require('async');
 
 var config = require('config')
 var domain = config.workplace.domain;
