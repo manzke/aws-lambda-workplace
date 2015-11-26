@@ -6,6 +6,8 @@ var domain = config.workplace.domain;
 var username = config.workplace.username;
 var password = config.workplace.password;
 
+console.log('using domain: ' + domain);
+
 var authService = require('workplace-auth-client').configure(domain);
 var provisioningBuilder = require('workplace-provisioning-client');
 
@@ -17,7 +19,7 @@ exports.handler = function(event, context) {
     var currTime = new Date().getMilliseconds();
 
     authService.basic(username, password, function(error, token) {
-        var provisioningService = provisioningBuilder(token, domain);
+        var provisioningService = provisioningBuilder.configure(token, domain);
         provisioningService.companies(function(error, companies){
             async.map(companies, function(company) {
                 var record = JSON.stringify({

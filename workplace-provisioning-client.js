@@ -3,7 +3,7 @@ var protocol = 'https';
 var service = 'provisioning';
 var apiPath = 'api/1';
 
-exports = function(token, domain) {
+exports.configure = function(token, domain) {
     var url = protocol + '://' + domain + '/' + service + '/' + apiPath;
 
     console.log('serviceURL = ' + url);
