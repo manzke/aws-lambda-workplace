@@ -5,7 +5,7 @@ var protocol = 'https';
 var service = 'fns-service';
 var apiPath = 'api/1';
 
-exports = function(domain) {
+exports.configure = function(domain) {
     var url = protocol + '://' + domain + '/' + service + '/' + apiPath;
     
     console.log('serviceURL = ' + url);
