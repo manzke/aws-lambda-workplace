@@ -2,7 +2,8 @@
 
 var config = module.exports = {
   kinesis : {
-    region : ''
+    region : '',
+    name: ''
   },
   
   workplace : {

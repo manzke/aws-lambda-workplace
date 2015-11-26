@@ -1,3 +1,4 @@
+config.js
 *.zip
 ignore/**
 node_modules/**
