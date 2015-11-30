@@ -1,39 +1,43 @@
 var AWS = require('aws-sdk');
-
-var config = require('config')
-var domain = config.workplace.domain;
-var username = config.workplace.username;
-var password = config.workplace.password;
-var streamName = config.kinesis.name;
-
-console.log('using domain: ' + domain);
-
-var authService = require('workplace-auth-client').configure(domain);
-var provisioningBuilder = require('workplace-provisioning-client');
-
-var kinesis = new AWS.Kinesis({region : config.kinesis.region});
+var auth = require('workplace-auth-client');
+var provisioning = require('workplace-provisioning-client');
 
 console.log('Loading function companies-loader.js');
 
 exports.handler = function(event, context) {
     var currTime = new Date().getMilliseconds();
 
+    var config = event;
+    var domain = config.workplace.domain;
+    var username = config.workplace.username;
+    var password = config.workplace.password;
+    var metrics = config.workplace.metrics;
+    var streamName = config.kinesis.name;
+
+    console.log('using domain: ' + domain);
+
+    var authService = auth.configure(domain);
+    var kinesis = new AWS.Kinesis({region : config.kinesis.region});
+
     authService.basic(username, password, function(error, token) {
-        var provisioningService = provisioningBuilder.configure(token, domain);
-        provisioningService.companies(function(error, companies){
+        var provisioningService = provisioning.configure(token, domain);
+        provisioningService.companies(true, function(error, companies){
             companies.forEach(function(company, index, array) {
                 var record = JSON.stringify({
-                  time: currTime,
-                  token : token,
-                  company : company
+                    time: currTime,
+                    token : token,
+                    domain : domain,
+                    company : company,
+                    username : username,
+                    metrics: metrics
                 });
-            
+
                 var recordParams = {
                     Data : record,
                     PartitionKey : 'company-' + company.id,
                     StreamName : streamName
                 };
-                
+
                 kinesis.putRecord(recordParams, function(err, data) {
                     if (err) {
                         console.error(err);
