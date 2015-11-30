@@ -7,9 +7,9 @@ var apiPath = 'api/1';
 
 exports.configure = function(domain) {
     var url = protocol + '://' + domain + '/' + service + '/' + apiPath;
-    
+
     console.log('serviceURL = ' + url);
-    
+
     return {
         basic: function(username, password, callback) {
             var authURL = url + '/token/basic';

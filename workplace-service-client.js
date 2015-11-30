@@ -1,13 +1,15 @@
+'use strict';
+
 var superagent = require('superagent');
 var protocol = 'https';
 var service = 'fns-service';
 var apiPath = 'api/1';
 
-exports = function(token, domain) {
+exports.configure = function(token, domain) {
     var url = protocol + '://' + domain + '/' + service + '/' + apiPath;
 
     console.log('serviceURL = ' + url);
-    
+
     return {
         metrics: function(metricNames, company, callback) {
             var metricsURL = url + '/metrics/' + metricNames;
@@ -29,7 +31,7 @@ exports = function(token, domain) {
                             callback(error);
                     }
                 });
-            
+
         }
     }
 
