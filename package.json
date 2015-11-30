@@ -1,13 +1,13 @@
 {
-  "name": "aws-lambda-newrelic-insights",
+  "name": "aws-lambda-workplace",
   "version": "0.0.1",
-  "description": "push events to newrelic insights with aws lambdas",
+  "description": "use workplace in amazon lambda",
+  "author": "Daniel Manzke",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/manzke/aws-lambda-newrelic-insights.git"
   },
-  "author": "Daniel Manzke",
-  "license": "MIT",
   "dependencies": {
     "superagent": "^1.4.0"
   }
