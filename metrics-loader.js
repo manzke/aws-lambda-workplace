@@ -49,6 +49,7 @@ exports.handler = function(event, context) {
             firehose.putRecord(recordParams, function(err, data) {
                 if (err) {
                     console.error(err);
+                    context.failed(err);
                 } else {
                     console.log('Successfully sent data to Firehose.');
                 }
