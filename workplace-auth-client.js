@@ -30,4 +30,4 @@ exports.configure = function(domain) {
                 });
         }
     }
-}
+};

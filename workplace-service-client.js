@@ -33,4 +33,4 @@ exports.configure = function(token, domain) {
                 });
         }
     }
-}
+};
