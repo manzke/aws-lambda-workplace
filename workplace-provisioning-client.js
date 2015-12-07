@@ -19,10 +19,10 @@ exports.configure = function(token, domain) {
                 .set('Authorization', token)
                 .send()
                 .end(function(error, response) {
-                    console.log(error);
                     if (response.ok) {
                         callback(null, response.body);
                     } else {
+                        console.log(error);
                         if(callback)
                             callback(error);
                     }
@@ -40,10 +40,10 @@ exports.configure = function(token, domain) {
                 .set('Authorization', token)
                 .send()
                 .end(function(error, response) {
-                    console.log(error);
                     if (response.ok) {
                         callback(null, response.body);
                     } else {
+                        console.log(error);
                         if(callback)
                             callback(error);
                     }

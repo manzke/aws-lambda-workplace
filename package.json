@@ -9,6 +9,7 @@
     "url": "https://github.com/manzke/aws-lambda-newrelic-insights.git"
   },
   "dependencies": {
+    "node-uuid": "^1.4.7",
     "superagent": "^1.4.0"
   }
 }

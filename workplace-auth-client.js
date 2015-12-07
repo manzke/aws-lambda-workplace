@@ -19,11 +19,11 @@ exports.configure = function(domain) {
                 .auth(username, password)
                 .send()
                 .end(function(error, response) {
-                    console.log(error);
                     if (response.ok) {
                         var token = 'sect ' + new Buffer(username + ':' + response.body.token).toString('base64');
                         callback(null, token);
                     } else {
+                        console.log(error);
                         if(callback)
                             callback(error);
                     }

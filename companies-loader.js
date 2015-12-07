@@ -1,14 +1,21 @@
 var AWS = require('aws-sdk');
+var uuid = require('node-uuid');
 var auth = require('workplace-auth-client');
 var provisioning = require('workplace-provisioning-client');
 
 console.log('Loading function companies-loader.js');
 
 exports.handler = function(event, context) {
+    var runUuid = uuid.v4();
+
+    console.log('Loading companies. run ['+runUuid+']');
     var currTime = new Date().getMilliseconds();
 
     var config = event;
     var domain = config.workplace.domain;
+    var stage = config.workplace.stage || 'PROD';
+    var customer = config.workplace.customer || 'ALL';
+    var region = config.workplace.region || 'global';
     var username = config.workplace.username;
     var password = config.workplace.password;
     var metrics = config.workplace.metrics;
@@ -24,9 +31,13 @@ exports.handler = function(event, context) {
         provisioningService.companies(true, function(error, companies){
             companies.forEach(function(company, index, array) {
                 var record = JSON.stringify({
+                    run: runUuid,
                     time: currTime,
                     token : token,
                     domain : domain,
+                    stage : stage,
+                    customer : customer,
+                    region : region,
                     company : company,
                     username : username,
                     metrics: metrics
